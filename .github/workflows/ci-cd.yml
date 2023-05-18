@@ -54,7 +54,6 @@ jobs:
           aws elasticbeanstalk create-application-version \
             --application-name nextjs \
             --version-label ${{ github.sha }} \
-            --source-bundle
 
           aws elasticbeanstalk update-environment \
             --environment-name Nextjs-env \
