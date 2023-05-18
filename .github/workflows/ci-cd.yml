@@ -47,14 +47,19 @@ jobs:
 
       # Step 6: Deploy to AWS Elastic Beanstalk
       - name: Deploy to Elastic Beanstalk
-        env:
-          ELASTIC_APPLICATION_NAME: ${{ env.ELASTIC_APPLICATION_NAME }}
-          ELASTIC_ENVIRONMENT_NAME: ${{ env.ELASTIC_ENVIRONMENT_NAME }}
         run: |
+          # Get the ECR image URI
+          ECR_REGISTRY="${{ steps.login-ecr.outputs.registry }}"
+          ECR_REPOSITORY="nextjs"
+          IMAGE_TAG="${{ github.sha }}"
+          ECR_IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+          # Create application version using the ECR image URI
           aws elasticbeanstalk create-application-version \
             --application-name nextjs \
             --version-label ${{ github.sha }} \
 
+          # Update environment to use the new application version
           aws elasticbeanstalk update-environment \
             --environment-name Nextjs-env \
             --version-label ${{ github.sha }}
