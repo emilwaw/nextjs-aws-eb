@@ -52,10 +52,10 @@ jobs:
           ELASTIC_ENVIRONMENT_NAME: ${{ env.ELASTIC_ENVIRONMENT_NAME }}
         run: |
           aws elasticbeanstalk create-application-version \
-            --application-name ${{ env.ELASTIC_APPLICATION_NAME }} \
+            --application-name nextjs \
             --version-label ${{ github.sha }} \
             --source-bundle
 
           aws elasticbeanstalk update-environment \
-            --environment-name ${{ env.ELASTIC_ENVIRONMENT_NAME }} \
+            --environment-name Nextjs-env \
             --version-label ${{ github.sha }}
