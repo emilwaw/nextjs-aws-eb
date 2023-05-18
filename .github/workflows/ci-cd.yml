@@ -48,10 +48,10 @@ jobs:
       - name: Deploy to Elastic Beanstalk
         run: |
           aws elasticbeanstalk create-application-version \
-            --application-name ${{ env.APPLICATION_NAME }} \
+            --application-name ${{ env.ELASTIC_APPLICATION_NAME }} \
             --version-label ${{ github.sha }} \
             --source-bundle
 
           aws elasticbeanstalk update-environment \
-            --environment-name ${{ env.ENVIRONMENT_NAME }} \
+            --environment-name ${{ env.ELASTIC_ENVIRONMENT_NAME }} \
             --version-label ${{ github.sha }}
