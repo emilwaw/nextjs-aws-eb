@@ -4,14 +4,6 @@ on:
   push:
     branches:
       - main
-
-env:
-  ECR_REGISTRY: <ECR_REGISTRY_URI>
-  ECR_REPOSITORY: <ECR_REPOSITORY>
-  AWS_REGION: <AWS_REGION>
-  ELASTIC_APPLICATION_NAME: <ELASTIC_APPLICATION_NAME>
-  ELASTIC_ENVIRONMENT_NAME: <ELASTIC_ENVIRONMENT_NAME>
-
 jobs:
   build:
     runs-on: ubuntu-latest
