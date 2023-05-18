@@ -54,12 +54,15 @@ jobs:
           IMAGE_TAG="${{ github.sha }}"
           ECR_IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
+          # Modify the version label to replace slashes with underscores
+          VERSION_LABEL=$(echo "$ECR_IMAGE_URI" | tr '/' '_')
+
           # Create application version using the ECR image URI
           aws elasticbeanstalk create-application-version \
             --application-name nextjs \
-            --version-label $ECR_IMAGE_URI \
+            --version-label $VERSION_LABEL \
 
           # Update environment to use the new application version
           aws elasticbeanstalk update-environment \
             --environment-name Nextjs-env \
-            --version-label $ECR_IMAGE_URI
+            --version-label $VERSION_LABEL
